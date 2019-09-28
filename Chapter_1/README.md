@@ -24,7 +24,7 @@
 
 * 新建一个Basic Activity类型的native app
 
-将aar添加到lib文件夹中, 修改app/build.gradle
+将aar添加到lib文件夹中, 修改app/build.gradle. 缺点: 不能再x86的模拟器运行(难受呀).
 ~~~~
     repositories {
         flatDir { dirs 'libs' }
