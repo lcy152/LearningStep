@@ -4,8 +4,9 @@
 
 ## Chapter 1
 
-* 新建一个Basic Activity类型的native app
 * 新建一个flutter app
+
+修改build.gradle
 ~~~~
     // apply plugin: 'com.android.application'
     apply plugin: 'com.android.library'
@@ -14,13 +15,14 @@
 
 修改AndroidManifest.xml
 
-
 ~~~~
     <!--android:name="io.flutter.app.FlutterApplication"-->
     <!--android:label="flutter_app"-->
 
     <!--<category android:name="android.intent.category.LAUNCHER"/>-->
 ~~~~
+
+* 新建一个Basic Activity类型的native app
 
 将aar添加到lib文件夹中, 修改app/build.gradle
 ~~~~
@@ -55,7 +57,7 @@
     </activity>
 ~~~~
 
-创建一个Activity
+启动flutter视图
 ~~~~
 //创建FlutterView
 flutterView = Flutter.createView(this, getLifecycle(), route + "?" + jsonObject.toString();
@@ -63,7 +65,7 @@ flutterView = Flutter.createView(this, getLifecycle(), route + "?" + jsonObject.
 setContentView(flutterView);
 ~~~~
 
-将config下的Flutter文件和FlutterFragment拷贝到项目中, 修改包名
+将config下的Flutter文件和FlutterFragment拷贝到项目中, 修改包名(来源请收看Chapter_2, 代号1001)
 ~~~~
 //创建FlutterView
 flutterView = Flutter.createView(this, getLifecycle(), route + "?" + jsonObject.toString();
@@ -71,7 +73,3 @@ flutterView = Flutter.createView(this, getLifecycle(), route + "?" + jsonObject.
 setContentView(flutterView);
 ~~~~
 
-
-详细文档请参考
-
-* [godoc.org/golang.org/x/oauth2](http://godoc.org/golang.org/x/oauth2)
