@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:flutter/services.dart';
+
 void main() => runApp(getRouter(window.defaultRouteName));
 
 Widget getRouter(String name) {
@@ -56,6 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  static const platformMethodChannel = const MethodChannel('com.test/test');
 
   void _incrementCounter() {
     setState(() {
@@ -65,6 +68,26 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+  }
+
+  Future<Null> doNativeSuff() async {
+    int _message; // 1
+    try {
+      final String result =
+          await platformMethodChannel.invokeMethod('showToast'); // 2
+      _message = 5;
+      print(result);
+    } on PlatformException catch (e) {
+      _message = 1;
+    }
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter += _message;
     });
   }
 
@@ -113,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: doNativeSuff,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

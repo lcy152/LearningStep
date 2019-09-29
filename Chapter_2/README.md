@@ -85,6 +85,9 @@
 打包: 运行成功
 
 * 异常(以下为在有百度语音SDK项目中集成遭遇, 因为百度语音SDK带so文件, 所以main/jniLibs下有so文件, 但是用下列解决办法也无法解决).
+
+1 编译遭遇--20190928
+
 ~~~~
 couldn't find "libflutter.so"
 ~~~~
@@ -104,10 +107,12 @@ Process 'command 'D:\flutter_SDK\flutter\bin\flutter.bat'' finished with non-zer
 
 解决办法: 无
 
+2 奇怪, 昨天编译还不能过, 今天编译过了, 打包啥的都正常了...难道是将so包放到jniLibs下有缓存吗? 总之重启一下试试吧--20190929
+
 集成到一个只有百度SDK的项目比较: 
 ~~~~
     Chapter_1优先考虑, 因为耦合度低, 缺点是不能再x86的模拟器运行flutter画面, 真机无碍.
-    Chapter_2能在项目main/jniLibs下有so文件时没能解决问题.
+    Chapter_2耦合度高 // Chapter_2能在项目main/jniLibs下有so文件时没能解决问题. // 已解决, 重启大法
 ~~~~
 
 
@@ -116,3 +121,34 @@ Process 'command 'D:\flutter_SDK\flutter\bin\flutter.bat'' finished with non-zer
     Chapter_1缺点是不能再x86的模拟器运行flutter画面, 真机无碍.
     Chapter_2没有任何问题.
 ~~~~
+
+
+3 INSTALL_FAILED_NO_MATCHING_ABIS
+~~~~
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+~~~~
+
+4 指定编译版本
+~~~~
+    release {
+        ...
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+~~~~
+
+5 启动flutter的时候可以看到log如下, 所以以下四个文件是必须存在aar中.
+I/ResourceExtractor: Extracted baseline resource assets/isolate_snapshot_data
+I/ResourceExtractor: Extracted baseline resource assets/vm_snapshot_instr
+I/ResourceExtractor: Extracted baseline resource assets/vm_snapshot_data
+I/ResourceExtractor: Extracted baseline resource assets/isolate_snapshot_instr
+
