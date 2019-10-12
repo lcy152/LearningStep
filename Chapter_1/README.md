@@ -24,7 +24,7 @@
 
 * 新建一个Basic Activity类型的native app
 
-将aar添加到lib文件夹中, 修改app/build.gradle. 缺点: 不能再x86的模拟器运行(难受呀). 分析aar包发现lib下面flutter-x86只有8B, 根本没打包进去...
+将aar添加到lib文件夹中, 修改app/build.gradle. 缺点: 不能再x86的模拟器运行(难受呀). 分析aar包发现lib下面flutter-x86只有8B, 根本没打包进去... (20190929 最新进展, 可以用debug包跑模拟器, 哈哈哈)
 ~~~~
     repositories {
         flatDir { dirs 'libs' }
