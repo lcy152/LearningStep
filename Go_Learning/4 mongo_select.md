@@ -62,3 +62,32 @@ sq := bson.D{
 		}},
 	}
 ~~~~
+
+
+#### 3. 数组交集数组
+
+~~~~
+{
+    id: 100
+    list: [
+        item1: {
+            key: 90,
+            value: [ 100, 200 ]
+        }
+    ]
+}
+
+sq := bson.D{
+		{"id", 100},
+		{"list", bson.M{
+			"$elemMatch": bson.M{
+				"key": 90,
+				"value": bson.M{
+					"$elemMatch": bson.M{
+						"$in": [200, 300],
+					},
+				},
+			},
+		}},
+	}
+~~~~
