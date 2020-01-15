@@ -91,3 +91,14 @@ sq := bson.D{
 		}},
 	}
 ~~~~
+
+
+
+#### 4.特殊符号查询
+
+~~~~
+	PatientNamePingyin = `\Q` + PatientNamePingyin
+	q := bson.M{"name_pinyin": bson.M{"$regex": PatientNamePingyin, "$options": "$i"}}
+	query = append(query, q)
+	curPatient, err := dbPatient.Find(context.TODO(), bson.M{"$and": query})
+~~~~
