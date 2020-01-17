@@ -102,3 +102,10 @@ sq := bson.D{
 	query = append(query, q)
 	curPatient, err := dbPatient.Find(context.TODO(), bson.M{"$and": query})
 ~~~~
+
+#### 5.忽略返回某些字段
+
+~~~~
+	op := &options.FindOptions{}
+	op.Projection = bson.M{"rx_list.beam_list.cp_list": 0}
+~~~~
